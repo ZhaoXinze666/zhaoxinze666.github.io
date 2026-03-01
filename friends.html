@@ -1,0 +1,60 @@
+<!DOCTYPE html> <html lang="zh-CN"> <head> <meta charset="UTF-8"> <title>友链页面</title> <style> /* 为整个页面主体设置背景图片 */ body { background-image: url('https://cdn.luogu.com.cn/upload/image_hosting/et6c9sji.png'); background-repeat: no-repeat; background-position: center center; background-attachment: fixed; background-size: cover; margin: 0; padding: 20px; font-family: Arial, sans-serif; min-height: 100vh; box-sizing: border-box; } 
+    /* 为内容区域设置半透明背景，确保文字可读性 */
+    .lg-article, .am-comment-bd {
+        background-color: rgba(255, 255, 255, 0.85); /* 白色半透明背景 */
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        backdrop-filter: blur(5px); /* 可选：背景模糊效果 */
+    }
+    
+    .am-input-group {
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .am-form-field {
+        background-color: #ffffff;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 16px;
+        padding: 10px 40px 10px 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .feed-comment {
+        display: block;
+        margin-bottom: 10px;
+        padding: 8px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 4px;
+    }
+    
+    .feed-comment a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    
+    .feed-comment a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head> <body> <div class="lg-article"> <h2>友链</h2> <div class="am-input-group am-input-group-primary am-input-group-sm"> <input type="text" class="am-form-field" placeholder="输入你的想法" name="user"> </div> </div> 
+<div class="am-comment-bd">
+    <span class="feed-comment">
+        <p><a href="https://www.luogu.com.cn/user/1217878/">lg12321a</a></p>
+    </span>
+    <span class="feed-comment">
+        <p><a href="https://ruyingsuixing.dpdns.org/">ruyingsuixing' Blog</a></p>
+    </span>
+    <span class="feed-comment">
+        <p><a href="https://www.luogu.com.cn/user/1620655/">_ruyingsuixing_</a></p>
+    </span>
+</div>
+</body> </html>
