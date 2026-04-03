@@ -45,7 +45,42 @@
         text-decoration: underline;
     }
 </style>
-</head> <body> <div class="lg-article"> <h1>604马里奥杯</h1> <div class="am-input-group am-input-group-primary am-input-group-sm"> <input type="text" class="am-form-field" placeholder="输入你的学号" name="user"> </div> </div> 
+</head> <body>
+<div class="lg-article">
+        <h1>604马里奥杯</h1><div class="am-input-group">
+            <input type="text" class="am-form-field" id="numberInput" placeholder="请输入你的学号并按回车键跳转">
+        </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取输入框元素
+        const numberInput = document.getElementById('numberInput');
+        
+        // 添加键盘事件监听器
+        numberInput.addEventListener('keypress', function(event) {
+            // 检查按下的键是否为回车键
+            if (event.key === 'Enter') {
+                // 获取输入值并去除首尾空格
+                const inputValue = this.value.trim();
+                
+                // 验证输入是否为数字
+                if (/^\d+$/.test(inputValue)) {
+                    // 构造目标URL并跳转
+                    const targetUrl = 'https://zhaoxinze666.github.io/x' + inputValue + '.html';
+                    window.location.href = targetUrl;
+                } else {
+                    // 输入无效时显示警告
+                    alert('请输入有效的数字！');
+                }
+            }
+        });
+        
+        // 页面跳转辅助函数
+        function jumpToPage(number) {
+            window.location.href = 'https://zhaoxinze666.github.io/' + number;
+        }
+    </script>
 <div class="am-comment-bd">
     <h2>历届比赛信息</h3>
     <h3>Round 1</h3>
