@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>马里奥赛车：极速挑战</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* 修改了字体栈，优先使用系统默认中文字体 */
+            font-family: "Microsoft YaHei", "Heiti TC", "PingFang SC", "Hiragino Sans GB", sans-serif;
+            overflow: hidden;
+        }
+
+        #game-container {
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        canvas {
+            background-color: #5c94fc; /* 天空蓝 */
+            display: block;
+            border-radius: 4px;
+        }
+
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        h1 {
+            color: #ffce00;
+            text-shadow: 3px 3px #e60012;
+            font-size: 40px;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        p {
+            color: white;
+            font-size: 18px;
+            text-shadow: 1px 1px #000;
+        }
+
+        #score-board {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px #000;
+            z-index: 10;
+        }
+
+        .btn {
+            pointer-events: auto;
+            background: #e60012;
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            background: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <canvas id="gameCanvas" width="400" height="600"></canvas>
+    <div id="score-board" class="hidden">分数: 0</div>
+    <div id="ui-layer">
+        <div id="start-screen">
+            <h1>马里奥赛车</h1>
+            <p>使用 ← → 方向键移动</p>
+            <p>躲避栗宝宝！</p>
+            <button class="btn" onclick="startGame()">开始游戏</button>
+        </div>
+        <div id="game-over-screen" class="hidden">
+            <h1>游戏结束</h1>
+            <p>最终分数: <span id="final-score">0</span></p>
+            <button class="btn" onclick="startGame()">再玩一次</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // UI 元素
+    const startScreen = document.getElementById('start-screen');
+    const gameOverScreen = document.getElementById('game-over-screen');
+    const scoreBoard = document.getElementById('score-board');
+    const finalScoreSpan = document.getElementById('final-score');
+
+    // 游戏状态
+    let gameRunning = false;
+    let score = 0;
+    let gameSpeed = 5;
+    let animationId;
+    let frameCount = 0;
+
+    // 玩家（马里奥）
+    const player = {
+        x: 175,
+        y: 450,
+        width: 50,
+        height: 70,
+        color: 'red',
+        dx: 0,
+        speed: 7
+    };
+
+    // 障碍物数组
+    let obstacles = [];
+
+    // 道路参数
+    const road = {
+        x: 50,
+        width: 300,
+        color: '#666'
+    };
+
+    // 键盘监听
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') player.dx = -player.speed;
+        if (e.key === 'ArrowRight') player.dx = player.speed;
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') player.dx = 0;
+    });
+
+    // 绘制函数：绘制马里奥卡丁车
+    function drawMarioKart(x, y, w, h) {
+        // 轮胎
+        ctx.fillStyle = '#222';
+        ctx.fillRect(x - 5, y + h - 20, 10, 20); // 左后
+        ctx.fillRect(x + w - 5, y + h - 20, 10, 20); // 右后
+        ctx.fillRect(x - 5, y + 10, 10, 15); // 左前
+        ctx.fillRect(x + w - 5, y + 10, 10, 15); // 右前
+
+        // 车身主体
+        ctx.fillStyle = '#d93636'; // 马里奥红
+        ctx.fillRect(x, y, w, h);
+
+        // 挡风玻璃
+        ctx.fillStyle = '#87CEEB';
+        ctx.fillRect(x + 5, y + 25, w - 10, 15);
+
+        // 驾驶员头（马里奥）
+        ctx.fillStyle = '#ffcc99'; // 肤色
+        ctx.beginPath();
+        ctx.arc(x + w/2, y + 10, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 帽子
+        ctx.fillStyle = '#d93636';
+        ctx.fillRect(x + 2, y - 5, w - 4, 10);
+        ctx.fillRect(x - 2, y - 5, w + 4, 4); // 帽檐
+
+        // 鼻子
+        ctx.fillStyle = '#ffcc99';
+        ctx.beginPath();
+        ctx.arc(x + w/2 + 8, y + 12, 3, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // 绘制函数：绘制栗宝宝
+    function drawGoomba(x, y, w, h) {
+        // 身体
+        ctx.fillStyle = '#8B4513'; // 棕色
+        ctx.beginPath();
+        ctx.moveTo(x + w/2, y);
+        ctx.lineTo(x + w, y + h);
+        ctx.lineTo(x, y + h);
+        ctx.fill();
+
+        // 眼睛
+        ctx.fillStyle = 'white';
+        ctx.fillRect(x + 10, y + 20, 15, 20);
+        ctx.fillRect(x + w - 25, y + 20, 15, 20);
+        
+        ctx.fillStyle = 'black';
+        ctx.fillRect(x + 15, y + 25, 5, 10);
+        ctx.fillRect(x + w - 20, y + 25, 5, 10);
+
+        // 眉毛
+        ctx.fillStyle = 'black';
+        ctx.fillRect(x + 8, y + 15, 20, 5);
+        ctx.fillRect(x + w - 28, y + 15, 20, 5);
+    }
+
+    // 绘制道路
+    function drawRoad() {
+        // 草地
+        ctx.fillStyle = '#55aa55';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 柏油路
+        ctx.fillStyle = road.color;
+        ctx.fillRect(road.x, 0, road.width, canvas.height);
+
+        // 路边线
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(road.x - 5, 0, 5, canvas.height);
+        ctx.fillRect(road.x + road.width, 0, 5, canvas.height);
+
+        // 中间虚线
+        ctx.fillStyle = '#fff';
+        let lineOffset = (frameCount * gameSpeed) % 40;
+        for (let i = -40; i < canvas.height; i += 40) {
+            ctx.fillRect(road.x + road.width/2 - 2, i + lineOffset, 4, 20);
+        }
+    }
+
+    // 生成障碍物
+    function spawnObstacle() {
+        const laneWidth = road.width / 3;
+        const lane = Math.floor(Math.random() * 3); // 0, 1, 2
+        const obsX = road.x + (lane * laneWidth) + (laneWidth/2) - 20; // 居中计算
+        
+        obstacles.push({
+            x: obsX,
+            y: -100,
+            width: 40,
+            height: 40,
+            type: 'goomba'
+        });
+    }
+
+    // 碰撞检测
+    function checkCollision(rect1, rect2) {
+        return (
+            rect1.x < rect2.x + rect2.width &&
+            rect1.x + rect1.width > rect2.x &&
+            rect1.y < rect2.y + rect2.height &&
+            rect1.y + rect1.height > rect2.y
+        );
+    }
+
+    // 游戏主循环
+    function update() {
+        if (!gameRunning) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 1. 绘制背景
+        drawRoad();
+
+        // 2. 更新玩家位置
+        player.x += player.dx;
+
+        // 边界检查
+        if (player.x < road.x) player.x = road.x;
+        if (player.x + player.width > road.x + road.width) player.x = road.x + road.width - player.width;
+
+        // 3. 绘制玩家
+        drawMarioKart(player.x, player.y, player.width, player.height);
+
+        // 4. 障碍物逻辑
+        frameCount++;
+        // 随着分数增加，生成频率加快
+        let spawnRate = 60;
+        if (score > 500) spawnRate = 45;
+        if (score > 1000) spawnRate = 30;
+
+        if (frameCount % spawnRate === 0) {
+            spawnObstacle();
+        }
+
+        obstacles.forEach((obs, index) => {
+            obs.y += gameSpeed;
+            
+            // 绘制障碍物
+            drawGoomba(obs.x, obs.y, obs.width, obs.height);
+
+            // 碰撞检测
+            if (checkCollision(player, obs)) {
+                gameOver();
+            }
+
+            // 移除超出屏幕的障碍物并加分
+            if (obs.y > canvas.height) {
+                obstacles.splice(index, 1);
+                score += 10;
+                scoreBoard.innerText = `分数: ${score}`;
+                
+                // 难度提升
+                if (score % 100 === 0) {
+                    gameSpeed += 0.5;
+                }
+            }
+        });
+
+        animationId = requestAnimationFrame(update);
+    }
+
+    // 开始游戏
+    function startGame() {
+        // 重置状态
+        gameRunning = true;
+        score = 0;
+        gameSpeed = 5;
+        obstacles = [];
+        player.x = 175;
+        frameCount = 0;
+        
+        // UI 更新
+        startScreen.classList.add('hidden');
+        gameOverScreen.classList.add('hidden');
+        scoreBoard.classList.remove('hidden');
+        scoreBoard.innerText = '分数: 0';
+
+        update();
+    }
+
+    // 游戏结束
+    function gameOver() {
+        gameRunning = false;
+        cancelAnimationFrame(animationId);
+        finalScoreSpan.innerText = score;
+        scoreBoard.classList.add('hidden');
+        gameOverScreen.classList.remove('hidden');
+    }
+
+</script>
+
+</body>
+</html>
