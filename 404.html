@@ -1,813 +1,341 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <link rel="shortcut icon" href="https://zhaoxinze666.github.io/favicon.ico?v=1766657564958">
-  <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
-  <title>404 页面 | 照新泽 blog</title>
-  <style>
-    @import url("https://fonts.googleapis.com/css?family=Barlow+Condensed:300,400,500,600,700,800,900|Barlow:300,400,500,600,700,800,900&display=swap");
-    .about {
-      position: fixed;
-      z-index: 10;
-      bottom: 10px;
-      right: 10px;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
-      transition: all 0.2s ease;
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>页面没有找到 | 如影随形的博客</title><meta name="keywords" content="C++, Python, Java, Hexo, 博客, 生活, 学习, 技术, 记录, 分享, 如影随形, 安知鱼, 洛谷, github"><meta name="author" content="Ruyingsuixing"><meta name="copyright" content="Ruyingsuixing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="页面没有找到"><meta name="application-name" content="页面没有找到"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="website"><meta property="og:title" content="页面没有找到"><meta property="og:url" content="https://blog.rusin.cn.mt/404.html"><meta property="og:site_name" content="如影随形的博客"><meta property="og:description" content="一个洛谷蒟蒻的 Hexo 博客，主题是安知鱼，记录一些学习和生活的点滴。欢迎大家访问！"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="Ruyingsuixing"><meta property="article:tag" content="C++, Python, Java, Hexo, 博客, 生活, 学习, 技术, 记录, 分享, 如影随形, 安知鱼, 洛谷, github"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="一个洛谷蒟蒻的 Hexo 博客，主题是安知鱼，记录一些学习和生活的点滴。欢迎大家访问！"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.rusin.cn.mt/404.html"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: Ruyingsuixing","link":"链接: ","source":"来源: 如影随形的博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.2.0/dist/fjGallery.css'
     }
-    .about .bg_links {
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 100%;
-      backdrop-filter: blur(5px);
-      position: absolute;
-    }
-    .about .logo {
-      width: 40px;
-      height: 40px;
-      z-index: 9;
-      background-image: url(https://rafaelavlucas.github.io/assets/codepen/logo_white.svg);
-      background-size: 50%;
-      background-repeat: no-repeat;
-      background-position: 10px 7px;
-      opacity: 0.9;
-      transition: all 1s 0.2s ease;
-      bottom: 0;
-      right: 0;
-    }
-    .about .social {
-      opacity: 0;
-      right: 0;
-      bottom: 0;
-    }
-    .about .social .icon {
-      width: 100%;
-      height: 100%;
-      background-size: 20px;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-color: transparent;
-      display: flex;
-      transition: all 0.2s ease, background-color 0.4s ease;
-      opacity: 0;
-      border-radius: 100%;
-    }
-    .about .social.portfolio {
-      transition: all 0.8s ease;
-    }
-    .about .social.portfolio .icon {
-      background-image: url(https://rafaelavlucas.github.io/assets/codepen/link.svg);
-    }
-    .about .social.dribbble {
-      transition: all 0.3s ease;
-    }
-    .about .social.dribbble .icon {
-      background-image: url(https://rafaelavlucas.github.io/assets/codepen/dribbble.svg);
-    }
-    .about .social.linkedin {
-      transition: all 0.8s ease;
-    }
-    .about .social.linkedin .icon {
-      background-image: url(https://rafaelavlucas.github.io/assets/codepen/linkedin.svg);
-    }
-    .about:hover {
-      width: 105px;
-      height: 105px;
-      transition: all 0.6s cubic-bezier(0.64, 0.01, 0.07, 1.65);
-    }
-    .about:hover .logo {
-      opacity: 1;
-      transition: all 0.6s ease;
-    }
-    .about:hover .social {
-      opacity: 1;
-    }
-    .about:hover .social .icon {
-      opacity: 0.9;
-    }
-    .about:hover .social:hover {
-      background-size: 28px;
-    }
-    .about:hover .social:hover .icon {
-      background-size: 65%;
-      opacity: 1;
-    }
-    .about:hover .social.portfolio {
-      right: 0;
-      bottom: calc(100% - 40px);
-      transition: all 0.3s 0s cubic-bezier(0.64, 0.01, 0.07, 1.65);
-    }
-    .about:hover .social.portfolio .icon:hover {
-      background-color: #698fb7;
-    }
-    .about:hover .social.dribbble {
-      bottom: 45%;
-      right: 45%;
-      transition: all 0.3s 0.15s cubic-bezier(0.64, 0.01, 0.07, 1.65);
-    }
-    .about:hover .social.dribbble .icon:hover {
-      background-color: #ea4c89;
-    }
-    .about:hover .social.linkedin {
-      bottom: 0;
-      right: calc(100% - 40px);
-      transition: all 0.3s 0.25s cubic-bezier(0.64, 0.01, 0.07, 1.65);
-    }
-    .about:hover .social.linkedin .icon:hover {
-      background-color: #0077b5;
-    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '如影随形的博客',
+  title: '页面没有找到',
+  postAI: '',
+  pageFillDescription: '一个洛谷蒟蒻的博客主题是安知鱼记录一些学习和生活的点滴欢迎大家访问',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2026-05-10 12:44:21',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    ul,
-    li,
-    button,
-    a,
-    i,
-    input,
-    body {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      border: 0;
-      -webkit-tap-highlight-color: transparent;
-      text-decoration: none;
-      color: inherit;
-    }
-    h1:focus,
-    h2:focus,
-    h3:focus,
-    h4:focus,
-    h5:focus,
-    h6:focus,
-    p:focus,
-    ul:focus,
-    li:focus,
-    button:focus,
-    a:focus,
-    i:focus,
-    input:focus,
-    body:focus {
-      outline: 0;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      height: auto;
-      font-family: "Barlow", sans-serif;
-      background: #695681;
-    }
-
-    .logo {
-      position: fixed;
-      z-index: 5;
-      bottom: 10px;
-      right: 10px;
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 100%;
-      backdrop-filter: blur(5px);
-    }
-    .logo img {
-      width: 55%;
-      height: 55%;
-      transform: translateY(-1px);
-      opacity: 0.8;
-    }
-
-    nav .menu {
-      width: 100%;
-      height: 80px;
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 5%;
-      box-sizing: border-box;
-      z-index: 3;
-    }
-    nav .menu .website_name {
-      color: #695681;
-      font-weight: 600;
-      font-size: 20px;
-      letter-spacing: 1px;
-      background: white;
-      padding: 4px 8px;
-      border-radius: 2px;
-      opacity: 0.5;
-      transition: all 0.4s ease;
-      cursor: pointer;
-    }
-    nav .menu .website_name:hover {
-      opacity: 1;
-    }
-    nav .menu .menu_links {
-      transition: all 0.4s ease;
-      opacity: 0.5;
-    }
-    nav .menu .menu_links:hover {
-      opacity: 1;
-    }
-    @media screen and (max-width: 799px) {
-      nav .menu .menu_links {
-        display: none;
-      }
-    }
-    nav .menu .menu_links .link {
-      color: white;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-right: 50px;
-      letter-spacing: 2px;
-      position: relative;
-      transition: all 0.3s 0.2s ease;
-    }
-    nav .menu .menu_links .link:last-child {
-      margin-right: 0;
-    }
-    nav .menu .menu_links .link:before {
-      content: "";
-      position: absolute;
-      width: 0px;
-      height: 4px;
-      background: linear-gradient(90deg, #FFEDC0 0%, #FF9D87 100%);
-      bottom: -10px;
-      border-radius: 4px;
-      transition: all 0.4s cubic-bezier(0.82, 0.02, 0.13, 1.26);
-      left: 100%;
-    }
-    nav .menu .menu_links .link:hover {
-      opacity: 1;
-      color: #FB8A8A;
-    }
-    nav .menu .menu_links .link:hover:before {
-      width: 40px;
-      left: 0;
-    }
-    nav .menu .menu_icon {
-      width: 40px;
-      height: 40px;
-      position: relative;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-    }
-    @media screen and (max-width: 799px) {
-      nav .menu .menu_icon {
-        display: flex;
-      }
-    }
-    nav .menu .menu_icon .icon {
-      width: 24px;
-      height: 2px;
-      background: white;
-      position: absolute;
-    }
-    nav .menu .menu_icon .icon:before, nav .menu .menu_icon .icon:after {
-      content: "";
-      width: 100%;
-      height: 100%;
-      background: inherit;
-      position: absolute;
-      transition: all 0.3s cubic-bezier(0.49, 0.04, 0, 1.55);
-    }
-    nav .menu .menu_icon .icon:before {
-      transform: translateY(-8px);
-    }
-    nav .menu .menu_icon .icon:after {
-      transform: translateY(8px);
-    }
-    nav .menu .menu_icon:hover .icon {
-      background: #FFEDC0;
-    }
-    nav .menu .menu_icon:hover .icon:before {
-      transform: translateY(-10px);
-    }
-    nav .menu .menu_icon:hover .icon:after {
-      transform: translateY(10px);
-    }
-
-    .wrapper {
-      display: grid;
-      grid-template-columns: 1fr;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow-x: hidden;
-    }
-    .wrapper .container {
-      margin: 0 auto;
-      transition: all 0.4s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-    .wrapper .container .scene {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      vertical-align: middle;
-    }
-    .wrapper .container .one,
-    .wrapper .container .two,
-    .wrapper .container .three,
-    .wrapper .container .circle,
-    .wrapper .container .p404 {
-      width: 60%;
-      height: 60%;
-      top: 20% !important;
-      left: 20% !important;
-      min-width: 400px;
-      min-height: 400px;
-    }
-    .wrapper .container .one .content,
-    .wrapper .container .two .content,
-    .wrapper .container .three .content,
-    .wrapper .container .circle .content,
-    .wrapper .container .p404 .content {
-      width: 600px;
-      height: 600px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: content 0.8s cubic-bezier(1, 0.06, 0.25, 1) backwards;
-    }
-    @keyframes content {
-      0% {
-        width: 0;
-      }
-    }
-    @media screen and (max-width: 480px) {
-      .button-group {
-        flex-direction: column; /* 小屏幕下按钮垂直排列 */
-        gap: 15px !important; /* 垂直间距 */
-      }
-      .button-group > div, .box__button {
-        width: 100%; /* 小屏幕下按钮占满宽度 */
-        max-width: 280px; /* 限制最大宽度，避免太宽 */
-      }
-    }
-    .wrapper .container .one .content .piece,
-    .wrapper .container .two .content .piece,
-    .wrapper .container .three .content .piece,
-    .wrapper .container .circle .content .piece,
-    .wrapper .container .p404 .content .piece {
-      width: 200px;
-      height: 80px;
-      display: flex;
-      position: absolute;
-      border-radius: 80px;
-      z-index: 1;
-      animation: pieceLeft 8s cubic-bezier(1, 0.06, 0.25, 1) infinite both;
-    }
-    @keyframes pieceLeft {
-      50% {
-        left: 80%;
-        width: 10%;
-      }
-    }
-    @keyframes pieceRight {
-      50% {
-        right: 80%;
-        width: 10%;
-      }
-    }
-    @media screen and (max-width: 799px) {
-      .wrapper .container .one,
-      .wrapper .container .two,
-      .wrapper .container .three,
-      .wrapper .container .circle,
-      .wrapper .container .p404 {
-        width: 90%;
-        height: 90%;
-        top: 5% !important;
-        left: 5% !important;
-        min-width: 280px;
-        min-height: 280px;
-      }
-    }
-    @media screen and (max-height: 660px) {
-      .wrapper .container .one,
-      .wrapper .container .two,
-      .wrapper .container .three,
-      .wrapper .container .circle,
-      .wrapper .container .p404 {
-        min-width: 280px;
-        min-height: 280px;
-        width: 60%;
-        height: 60%;
-        top: 20% !important;
-        left: 20% !important;
-      }
-    }
-    .wrapper .container .text {
-      width: 60%;
-      height: 40%;
-      min-width: 400px;
-      min-height: 500px;
-      position: absolute;
-      margin: 40px 0;
-      animation: text 0.6s 1.8s ease backwards;
-    }
-    @keyframes text {
-      0% {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-    }
-    @media screen and (max-width: 799px) {
-      .wrapper .container .text {
-        min-height: 400px;
-        height: 80%;
-      }
-    }
-    .wrapper .container .text article {
-      width: 400px;
-      position: absolute;
-      bottom: 0;
-      z-index: 4;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    /* 按钮容器样式优化 */
-    /* 1. 按钮容器：强制不换行，适配小屏幕 */
-    .wrapper .container .text article .button-group {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: nowrap; /* 强制不换行 */
-      width: 100%; /* 占满父容器宽度 */
-    }
-    
-    /* 2. 按钮+倒计时的组合容器：强制不换行，避免内部换行 */
-    .wrapper .container .text article .button-group > div {
-      display: flex;
-      align-items: center;
-      background: #FF5E65;
-      border-radius: 50px;
-      padding-right: 12px;
-      white-space: nowrap; /* 强制内部元素不换行 */
-    }
-    @media screen and (max-width: 799px) {
-      .wrapper .container .text article {
-        width: 100%;
-      }
-    }
-    .wrapper .container .text article p {
-      color: white;
-      font-size: 18px;
-      letter-spacing: 0.6px;
-      margin-bottom: 40px;
-      text-shadow: 6px 6px 10px #32243E;
-    }
-    .wrapper .container .p404 {
-      font-size: 200px;
-      font-weight: 700;
-      letter-spacing: 4px;
-      color: white;
-      display: flex !important;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      z-index: 2;
-      animation: anime404 0.6s cubic-bezier(0.3, 0.8, 1, 1.05) both;
-      animation-delay: 1.2s;
-    }
-    @media screen and (max-width: 799px) {
-      .wrapper .container .p404 {
-        font-size: 100px;
-      }
-    }
-    @keyframes anime404 {
-      0% {
-        opacity: 0;
-        transform: scale(10) skew(20deg, 20deg);
-      }
-    }
-    .wrapper .container .p404:nth-of-type(2) {
-      color: #36184F;
-      z-index: 1;
-      animation-delay: 1s;
-      filter: blur(10px);
-      opacity: 0.8;
-    }
-    .wrapper .container .circle {
-      position: absolute;
-    }
-    .wrapper .container .circle:before {
-      content: "";
-      position: absolute;
-      width: 800px;
-      height: 800px;
-      background-color: rgba(54, 24, 79, 0.2);
-      border-radius: 100%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: inset 5px 20px 40px rgba(54, 24, 79, 0.25), inset 5px 0px 5px rgba(50, 36, 62, 0.3), inset 5px 5px 20px rgba(50, 36, 62, 0.25), 2px 2px 5px rgba(255, 255, 255, 0.2);
-      animation: circle 0.8s cubic-bezier(1, 0.06, 0.25, 1) backwards;
-    }
-    @keyframes circle {
-      0% {
-        width: 0;
-        height: 0;
-      }
-    }
-    @media screen and (max-width: 799px) {
-      .wrapper .container .circle:before {
-        width: 400px;
-        height: 400px;
-      }
-    }
-    .wrapper .container .one .content:before {
-      content: "";
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background-color: rgba(54, 24, 79, 0.3);
-      border-radius: 100%;
-      box-shadow: inset 5px 20px 40px rgba(54, 24, 79, 0.25), inset 5px 0px 5px rgba(50, 36, 62, 0.3), inset 5px 5px 20px rgba(50, 36, 62, 0.25), 2px 2px 5px rgba(255, 255, 255, 0.2);
-      animation: circle 0.8s 0.4s cubic-bezier(1, 0.06, 0.25, 1) backwards;
-    }
-    @media screen and (max-width: 799px) {
-      .wrapper .container .one .content:before {
-        width: 300px;
-        height: 300px;
-      }
-    }
-    .wrapper .container .one .content .piece {
-      background: linear-gradient(90deg, #8077EA 13.7%, #EB73FF 94.65%);
-    }
-    .wrapper .container .one .content .piece:nth-child(1) {
-      right: 15%;
-      top: 18%;
-      height: 30px;
-      width: 120px;
-      animation-delay: 0.5s;
-      animation-name: pieceRight;
-    }
-    .wrapper .container .one .content .piece:nth-child(2) {
-      left: 15%;
-      top: 45%;
-      width: 150px;
-      height: 50px;
-      animation-delay: 1s;
-      animation-name: pieceLeft;
-    }
-    .wrapper .container .one .content .piece:nth-child(3) {
-      left: 10%;
-      top: 75%;
-      height: 20px;
-      width: 70px;
-      animation-delay: 1.5s;
-      animation-name: pieceLeft;
-    }
-    .wrapper .container .two .content .piece {
-      background: linear-gradient(90deg, #FFEDC0 0%, #FF9D87 100%);
-    }
-    .wrapper .container .two .content .piece:nth-child(1) {
-      left: 0%;
-      top: 25%;
-      height: 40px;
-      width: 120px;
-      animation-delay: 2s;
-      animation-name: pieceLeft;
-    }
-    .wrapper .container .two .content .piece:nth-child(2) {
-      right: 15%;
-      top: 35%;
-      width: 180px;
-      height: 50px;
-      animation-delay: 2.5s;
-      animation-name: pieceRight;
-    }
-    .wrapper .container .two .content .piece:nth-child(3) {
-      right: 10%;
-      top: 80%;
-      height: 20px;
-      width: 160px;
-      animation-delay: 3s;
-      animation-name: pieceRight;
-    }
-    .wrapper .container .three .content .piece {
-      background: #FB8A8A;
-    }
-    .wrapper .container .three .content .piece:nth-child(1) {
-      left: 25%;
-      top: 35%;
-      height: 20px;
-      width: 80px;
-      animation-name: pieceLeft;
-      animation-delay: 3.5s;
-    }
-    .wrapper .container .three .content .piece:nth-child(2) {
-      right: 10%;
-      top: 55%;
-      width: 140px;
-      height: 40px;
-      animation-name: pieceRight;
-      animation-delay: 4s;
-    }
-    .wrapper .container .three .content .piece:nth-child(3) {
-      left: 40%;
-      top: 68%;
-      height: 20px;
-      width: 80px;
-      animation-name: pieceLeft;
-      animation-delay: 4.5s;
-    }
-
-    /* 按钮样式优化 */
-    .box__button {
-      display: inline-block;
-      position: relative;
-      background: #FF5E65;
-      border: 1px solid transparent;
-      border-radius: 50px;
-      height: 40px;
-      text-align: center;
-      text-decoration: none;
-      color: #fff;
-      line-height: 40px;
-      font-size: 16px;
-      padding: 0 25px; /* 从40px缩小到25px，减少按钮宽度 */
-      white-space: nowrap;
-      margin-top: 0;
-      transition: background .5s ease;
-      overflow: hidden;
-      font-family: 'Ubuntu', sans-serif;
-    }
-    .box__button:before {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 100px;
-      background: #fff;
-      bottom: -25px;
-      left: 0;
-      border: 2px solid #fff;
-      transform: translateX(-50px) rotate(45deg);
-      transition: transform .5s ease;
-    }
-    .box__button:hover {
-      background: transparent;
-      border-color: #fff;
-    }
-    .box__button:hover:before {
-      transform: translateX(250px) rotate(45deg);
-    }
-
-    /* 倒计时文字样式（融合主题） */
-    @keyframes countFlash {
-      0% { opacity: 1; }
-      50% { opacity: 0.8; }
-      100% { opacity: 1; }
-    }
-    .countdown-text {
-      animation: countFlash 1s infinite;
-      margin-left: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      /* 页面同款渐变，贴合主题 */
-      background: linear-gradient(90deg, #FFEDC0 0%, #FF9D87 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-  </style>
-</head>
-
-<body translate="no">
-  <!-- about -->
-  <div class="about">
-    <a class="bg_links social portfolio" href="https://zhaoxinze666.github.io/article" target="_blank">
-      <span class="icon"></span>
-    </a>
-    <a class="bg_links social dribbble" href="https://zhaoxinze666.github.io/tags" target="_blank">
-      <span class="icon"></span>
-    </a>
-    <a class="bg_links social linkedin" href="https://zhaoxinze666.github.io/post/about" target="_blank">
-      <span class="icon"></span>
-    </a>
-    <a class="bg_links logo"></a>
-  </div>
-  <!-- end about -->
-
-  <nav>
-    <div class="menu">
-      <a href="https://zhaoxinze666.github.io" class="website_name">照新泽 blog</a>
-      <div class="menu_links">
-        <a href="https://zhaoxinze666.github.io/thinks" class="link">think</a>
-        <a href="https://zhaoxinze666.github.io/article" class="link">article</a>
-        <a href="https://zhaoxinze666.github.io" class="link">homepage</a>
-      </div>
-      <div class="menu_icon">
-        <span class="icon"></span>
-      </div>
-    </div>
-  </nav>
-
-  <section class="wrapper">
-    <div class="container">
-      <div id="scene" class="scene" data-hover-only="false">
-        <div class="circle" data-depth="1.2"></div>
-        <div class="one" data-depth="0.9">
-          <div class="content">
-            <span class="piece"></span>
-            <span class="piece"></span>
-            <span class="piece"></span>
-          </div>
-        </div>
-        <div class="two" data-depth="0.60">
-          <div class="content">
-            <span class="piece"></span>
-            <span class="piece"></span>
-            <span class="piece"></span>
-          </div>
-        </div>
-        <div class="three" data-depth="0.40">
-          <div class="content">
-            <span class="piece"></span>
-            <span class="piece"></span>
-            <span class="piece"></span>
-          </div>
-        </div>
-        <p class="p404" data-depth="0.50">404</p>
-        <p class="p404" data-depth="0.10">404</p>
-      </div>
-
-      <div class="text">
-        <article>
-          <p>啊哦！你好像第 <img src="https://counter.jerryz.com.cn/view?name=rysx&dark=1" alt="Counter"> 个来到了迷失之地。<br>赶紧回到主页继续游览吧！</p>
-          <div class="button-group">
-            <div>
-              <a href="https://zhaoxinze666.github.io/" title="回到主页" class="box__button">返回主页</a>
-              <span class="countdown-text" id="countdown">(5秒后自动跳转)</span>
-            </div>
-            <a href="javascript:history.go(-1);" title="回到上步" class="box__button">回到上步</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script id="rendered-js">
-    var scene = document.getElementById('scene');
-    var parallax = new Parallax(scene);
-
-    // 页面完全加载后再启动倒计时，避免加载耗时导致倒计时提前减少
-    window.onload = function() {
-      let countdown = 5; // 初始5秒，确保从5开始倒计时
-      const countdownElement = document.getElementById('countdown');
-      // 初始化显示文字
-      countdownElement.textContent = `(${countdown}秒后自动跳转)`;
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
-      const countdownInterval = setInterval(() => {
-        countdown--;
-        if (countdown > 0) {
-          countdownElement.textContent = `(${countdown}秒后自动跳转)`;
-        } else {
-          clearInterval(countdownInterval);
-          window.location.href = 'https://zhaoxinze666.github.io/';
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
         }
-      }, 1000);
-    };
-  </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"7046b94136f74bceb81afcc12be84078","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-</body>
-</html>
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="error" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">如影随形的博客</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2026/04/"><span class="card-archive-list-date">四月 2026</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav></header><div class="error-box"><div id="error-wrap"><div class="error-content"><div class="error-img" style="background-image: url('https://bu.dusays.com/2023/05/08/645907596997d.gif')"></div><div class="error-info"><h1 class="error_title">404</h1><div class="error_subtitle">请尝试站内搜索寻找文章</div><a class="button--animated" href="/"><i class="anzhiyufont anzhiyu-icon-rocket"></i>回到主页</a></div></div></div><div class="aside-list"><div class="aside-list-group"><div class="aside-list-item"><div class="content"><a class="title" href="/article/undefined/" title="Hello World">Hello World</a><time datetime="2026-04-25T07:52:43.680Z" title="发表于 2026-04-25 15:52:43">2026-04-25</time></div></div></div></div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://hexo.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span></div></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@6.1.6/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.7.1",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 Ruyingsuixing 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="404"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://cdn.cbd.int/qrcodejs@1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
