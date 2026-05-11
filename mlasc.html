@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÂíÀï°ÂÈü³µ£º¼«ËÙÌôÕ½</title>
+    <title>é©¬é‡Œå¥¥èµ›è½¦</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        body {
             background-color: #222;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* ĞŞ¸ÄÁË×ÖÌåÕ»£¬ÓÅÏÈÊ¹ÓÃÏµÍ³Ä¬ÈÏÖĞÎÄ×ÖÌå */
-            font-family: "Microsoft YaHei", "Heiti TC", "PingFang SC", "Hiragino Sans GB", sans-serif;
+            width: 100vw;
             overflow: hidden;
+            font-family: "Microsoft YaHei", "Heiti TC", "PingFang SC", "Hiragino Sans GB", sans-serif;
         }
 
         #game-container {
             position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            width: 100vw;
+            height: 100vh;
         }
 
         canvas {
-            background-color: #5c94fc; /* Ìì¿ÕÀ¶ */
+            background-color: #222;
             display: block;
-            border-radius: 4px;
+            width: 100%;
+            height: 100%;
         }
 
         #ui-layer {
@@ -84,6 +89,7 @@
             margin-top: 20px;
             font-weight: bold;
             text-transform: uppercase;
+            margin: 10px;
         }
 
         .btn:hover {
@@ -94,19 +100,18 @@
 <body>
 
 <div id="game-container">
-    <canvas id="gameCanvas" width="400" height="600"></canvas>
-    <div id="score-board" class="hidden">·ÖÊı: 0</div>
+    <canvas id="gameCanvas"></canvas>
+    <div id="score-board" class="hidden">å½“å‰åˆ†æ•°: 0</div>
     <div id="ui-layer">
-        <div id="start-screen">
-            <h1>ÂíÀï°ÂÈü³µ</h1>
-            <p>Ê¹ÓÃ ¡û ¡ú ·½Ïò¼üÒÆ¶¯</p>
-            <p>¶ã±ÜÀõ±¦±¦£¡</p>
-            <button class="btn" onclick="startGame()">¿ªÊ¼ÓÎÏ·</button>
+        <div id="pause-screen" class="hidden">
+            <h1>æ¸¸æˆå·²æš‚åœ</h1>
+            <button class="btn" onclick="resumeGame()">ç»§ç»­æ¸¸æˆ</button>
+            <button class="btn" onclick="endGame()">ç»“æŸæ¸¸æˆ</button>
         </div>
-        <div id="game-over-screen" class="hidden">
-            <h1>ÓÎÏ·½áÊø</h1>
-            <p>×îÖÕ·ÖÊı: <span id="final-score">0</span></p>
-            <button class="btn" onclick="startGame()">ÔÙÍæÒ»´Î</button>
+        <div id="game-over-screen" class="">
+            <h1>é©¬é‡Œå¥¥èµ›è½¦</h1>
+            <p>æœ€é«˜å¾—åˆ†: <span id="final-score">0</span></p>
+            <button class="btn" onclick="startGame()">å¼€å§‹æ¸¸æˆ</button>
         </div>
     </div>
 </div>
@@ -115,149 +120,259 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     
-    // UI ÔªËØ
-    const startScreen = document.getElementById('start-screen');
+    // UI å…ƒç´ 
+    const pauseScreen = document.getElementById('pause-screen');
     const gameOverScreen = document.getElementById('game-over-screen');
     const scoreBoard = document.getElementById('score-board');
     const finalScoreSpan = document.getElementById('final-score');
 
-    // ÓÎÏ·×´Ì¬
+    // æ¸¸æˆçŠ¶æ€
     let gameRunning = false;
+    let isPaused = false;
     let score = 0;
     let gameSpeed = 5;
     let animationId;
     let frameCount = 0;
 
-    // Íæ¼Ò£¨ÂíÀï°Â£©
+    // ç©å®¶
     const player = {
-        x: 175,
-        y: 450,
+        x: 0,
+        y: 0,
         width: 50,
         height: 70,
         color: 'red',
         dx: 0,
-        speed: 7
+        speed: 7,
+        isSlipping: false,
+        slipTime: 0,
+        slipForce: 0
     };
 
-    // ÕÏ°­ÎïÊı×é
+    // éšœç¢ç‰© & å¡è½¦
     let obstacles = [];
+    let truck = null;
+    const truckInterval = 5 * 60;
 
-    // µÀÂ·²ÎÊı
+    // ====================== ä½ è¦çš„è°ƒæ•´ ======================
+    // æ°´æ´¼æ•°é‡ï¼šä» 8 â†’ 3 ä¸ªï¼ˆæ›´å°‘ï¼‰
+    let puddles = [];
+    const puddleCount = 3;
+
+    // æ¼‚ç§»åŠ›åº¦ï¼šä» 6 â†’ 2.5ï¼ˆæ›´è½»ã€æ›´æ˜“æ§åˆ¶ï¼‰
+    const MAX_SLIP_FORCE = 2.5;
+
+    // å¤©æ°”ç³»ç»Ÿï¼šæ™´å¤© / ä¸‹é›¨ / å¤§é›¾ï¼Œè‡ªåŠ¨åˆ‡æ¢
+    let weather = 'sunny'; // sunny / rainy / foggy
+    let weatherChangeTimer = 0;
+    let weatherChangeDelay = 15 * 60; // 15ç§’åˆ‡æ¢ä¸€æ¬¡
+
+    // ======================================================
+
+    // é›¨æ»´
+    let rainDrops = [];
+    function initRain() {
+        rainDrops = [];
+        for (let i = 0; i < 150; i++) {
+            rainDrops.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                speed: Math.random() * 8 + 6,
+                length: Math.random() * 10 + 5
+            });
+        }
+    }
+
+    function drawRain() {
+        if (weather !== 'rainy') return;
+        ctx.strokeStyle = 'rgba(173, 216, 230, 0.6)';
+        ctx.lineWidth = 1.5;
+        rainDrops.forEach(drop => {
+            ctx.beginPath();
+            ctx.moveTo(drop.x, drop.y);
+            ctx.lineTo(drop.x, drop.y + drop.length);
+            ctx.stroke();
+            drop.y += drop.speed;
+            if (drop.y > canvas.height) {
+                drop.y = -drop.length;
+                drop.x = Math.random() * canvas.width;
+            }
+        });
+    }
+
+    // é›¾æ•ˆæœ
+    function drawFog() {
+        if (weather !== 'foggy') return;
+        ctx.fillStyle = 'rgba(255,255,255,0.15)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+
+    // è‡ªåŠ¨åˆ‡æ¢å¤©æ°”ï¼ˆä¿®å¤ç‰ˆï¼šä¿è¯ä¸€å®šä¼šä¸‹é›¨ï¼‰
+    function autoChangeWeather() {
+        weatherChangeTimer++;
+        if (weatherChangeTimer >= weatherChangeDelay) {
+            weatherChangeTimer = 0;
+            
+            // ä¿®å¤ï¼šå¦‚æœå½“å‰ä¸æ˜¯é›¨å¤©ï¼Œä¼˜å…ˆå¼ºåˆ¶åˆ‡ä¸€æ¬¡é›¨å¤©
+            if (weather !== 'rainy' && Math.random() > 0.3) {
+                weather = 'rainy';
+            } else {
+                // æ­£å¸¸éšæœº
+                const weathers = ['sunny', 'rainy', 'foggy'];
+                weather = weathers[Math.floor(Math.random() * weathers.length)];
+            }
+
+            weatherChangeDelay = (Math.random() * 10 + 3) * 60; // 10~20ç§’
+        }
+    }
+
+    // æ°´æ´¼
+    function initPuddles() {
+        puddles = [];
+        for (let i = 0; i < puddleCount; i++) {
+            puddles.push({
+                x: road.x + Math.random() * (road.width - 40),
+                y: -Math.random() * canvas.height,
+                size: 30 + Math.random() * 20
+            });
+        }
+    }
+
+    function drawPuddles() {
+        if (weather !== 'rainy') return;
+        ctx.fillStyle = 'rgba(0, 100, 200, 0.4)';
+        puddles.forEach(p => {
+            ctx.beginPath();
+            ctx.ellipse(p.x, p.y, p.size, p.size * 0.6, 0, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    }
+
+    // é“è·¯
     const road = {
-        x: 50,
         width: 300,
-        color: '#666'
+        color: '#666',
+        x: 0
     };
 
-    // ¼üÅÌ¼àÌı
+    // é”®ç›˜
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') player.dx = -player.speed;
         if (e.key === 'ArrowRight') player.dx = player.speed;
+        if (e.key === ' ' && gameRunning && !isPaused) pauseGame();
+        else if (e.key === ' ' && isPaused) resumeGame();
     });
-
     document.addEventListener('keyup', (e) => {
         if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') player.dx = 0;
     });
 
-    // »æÖÆº¯Êı£º»æÖÆÂíÀï°Â¿¨¶¡³µ
+    // çª—å£
+    function resizeCanvas() {
+        const container = document.getElementById('game-container');
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+        road.x = (canvas.width - road.width) / 2;
+        player.y = canvas.height - 150;
+        player.x = road.x + (road.width - player.width) / 2;
+        initRain();
+    }
+
+    // ç»˜å›¾
     function drawMarioKart(x, y, w, h) {
-        // ÂÖÌ¥
         ctx.fillStyle = '#222';
-        ctx.fillRect(x - 5, y + h - 20, 10, 20); // ×óºó
-        ctx.fillRect(x + w - 5, y + h - 20, 10, 20); // ÓÒºó
-        ctx.fillRect(x - 5, y + 10, 10, 15); // ×óÇ°
-        ctx.fillRect(x + w - 5, y + 10, 10, 15); // ÓÒÇ°
-
-        // ³µÉíÖ÷Ìå
-        ctx.fillStyle = '#d93636'; // ÂíÀï°Âºì
+        ctx.fillRect(x - 5, y + h - 20, 10, 20);
+        ctx.fillRect(x + w - 5, y + h - 20, 10, 20);
+        ctx.fillRect(x - 5, y + 10, 10, 15);
+        ctx.fillRect(x + w - 5, y + 10, 10, 15);
+        ctx.fillStyle = '#d93636';
         ctx.fillRect(x, y, w, h);
-
-        // µ²·ç²£Á§
         ctx.fillStyle = '#87CEEB';
         ctx.fillRect(x + 5, y + 25, w - 10, 15);
-
-        // ¼İÊ»Ô±Í·£¨ÂíÀï°Â£©
-        ctx.fillStyle = '#ffcc99'; // ·ôÉ«
+        ctx.fillStyle = '#ffcc99';
         ctx.beginPath();
         ctx.arc(x + w/2, y + 10, 12, 0, Math.PI * 2);
         ctx.fill();
-
-        // Ã±×Ó
         ctx.fillStyle = '#d93636';
         ctx.fillRect(x + 2, y - 5, w - 4, 10);
-        ctx.fillRect(x - 2, y - 5, w + 4, 4); // Ã±éÜ
-
-        // ±Ç×Ó
+        ctx.fillRect(x - 2, y - 5, w + 4, 4);
         ctx.fillStyle = '#ffcc99';
         ctx.beginPath();
         ctx.arc(x + w/2 + 8, y + 12, 3, 0, Math.PI * 2);
         ctx.fill();
     }
 
-    // »æÖÆº¯Êı£º»æÖÆÀõ±¦±¦
     function drawGoomba(x, y, w, h) {
-        // ÉíÌå
-        ctx.fillStyle = '#8B4513'; // ×ØÉ«
+        ctx.fillStyle = '#8B4513';
         ctx.beginPath();
         ctx.moveTo(x + w/2, y);
         ctx.lineTo(x + w, y + h);
         ctx.lineTo(x, y + h);
         ctx.fill();
-
-        // ÑÛ¾¦
         ctx.fillStyle = 'white';
         ctx.fillRect(x + 10, y + 20, 15, 20);
         ctx.fillRect(x + w - 25, y + 20, 15, 20);
-        
         ctx.fillStyle = 'black';
         ctx.fillRect(x + 15, y + 25, 5, 10);
         ctx.fillRect(x + w - 20, y + 25, 5, 10);
-
-        // Ã¼Ã«
         ctx.fillStyle = 'black';
         ctx.fillRect(x + 8, y + 15, 20, 5);
         ctx.fillRect(x + w - 28, y + 15, 20, 5);
     }
 
-    // »æÖÆµÀÂ·
+    function drawTruck(x, y, w, h) {
+        ctx.fillStyle = '#222';
+        ctx.beginPath();
+        ctx.arc(x + 15, y + h, 10, 0, Math.PI * 2);
+        ctx.arc(x + w - 15, y + h, 10, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#4169E1';
+        ctx.fillRect(x, y + 30, w, h - 30);
+        ctx.fillStyle = '#FF6347';
+        ctx.fillRect(x, y, w, 30);
+        ctx.fillStyle = '#87CEEB';
+        ctx.fillRect(x + 10, y + 35, w - 20, 20);
+    }
+
+    function spawnTruck() {
+        if(truck) return;
+        const laneWidth = road.width / 3;
+        const lane = Math.floor(Math.random() * 3);
+        const truckX = road.x + (lane * laneWidth) + (laneWidth/2) - 30;
+        truck = { x: truckX, y: -150, width: 60, height: 100, speed: gameSpeed + 2 };
+    }
+
     function drawRoad() {
-        // ²İµØ
-        ctx.fillStyle = '#55aa55';
+        const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        bgGradient.addColorStop(0, '#1a5f7a');
+        bgGradient.addColorStop(0.3, '#3a7d44');
+        bgGradient.addColorStop(0.6, '#55aa55');
+        bgGradient.addColorStop(1, '#2d6a32');
+        ctx.fillStyle = bgGradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // °ØÓÍÂ·
-        ctx.fillStyle = road.color;
+        const roadGradient = ctx.createLinearGradient(road.x, 0, road.x + road.width, 0);
+        roadGradient.addColorStop(0, '#555');
+        roadGradient.addColorStop(0.5, '#777');
+        roadGradient.addColorStop(1, '#555');
+        ctx.fillStyle = roadGradient;
         ctx.fillRect(road.x, 0, road.width, canvas.height);
 
-        // Â·±ßÏß
         ctx.fillStyle = '#fff';
         ctx.fillRect(road.x - 5, 0, 5, canvas.height);
         ctx.fillRect(road.x + road.width, 0, 5, canvas.height);
 
-        // ÖĞ¼äĞéÏß
-        ctx.fillStyle = '#fff';
         let lineOffset = (frameCount * gameSpeed) % 40;
         for (let i = -40; i < canvas.height; i += 40) {
             ctx.fillRect(road.x + road.width/2 - 2, i + lineOffset, 4, 20);
         }
     }
 
-    // Éú³ÉÕÏ°­Îï
     function spawnObstacle() {
         const laneWidth = road.width / 3;
-        const lane = Math.floor(Math.random() * 3); // 0, 1, 2
-        const obsX = road.x + (lane * laneWidth) + (laneWidth/2) - 20; // ¾ÓÖĞ¼ÆËã
-        
-        obstacles.push({
-            x: obsX,
-            y: -100,
-            width: 40,
-            height: 40,
-            type: 'goomba'
-        });
+        const lane = Math.floor(Math.random() * 3);
+        const obsX = road.x + (lane * laneWidth) + (laneWidth/2) - 20;
+        obstacles.push({ x: obsX, y: -100, width: 40, height: 40, type: 'goomba' });
     }
 
-    // Åö×²¼ì²â
     function checkCollision(rect1, rect2) {
         return (
             rect1.x < rect2.x + rect2.width &&
@@ -267,92 +382,122 @@
         );
     }
 
-    // ÓÎÏ·Ö÷Ñ­»·
+    // ä¸»å¾ªç¯
     function update() {
-        if (!gameRunning) return;
-
+        if (!gameRunning || isPaused) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // 1. »æÖÆ±³¾°
+        autoChangeWeather(); // è‡ªåŠ¨æ¢å¤©æ°”
         drawRoad();
+        drawRain();
+        drawFog();
 
-        // 2. ¸üĞÂÍæ¼ÒÎ»ÖÃ
+        // æ°´æ´¼ç§»åŠ¨
+        if (weather === 'rainy') {
+            puddles.forEach(p => {
+                p.y += gameSpeed;
+                if (p.y > canvas.height) { p.y = -50; p.x = road.x + Math.random() * (road.width - 40); }
+            });
+            drawPuddles();
+        }
+
+        // æ‰“æ»‘
+        if (player.isSlipping) {
+            player.x += player.slipForce;
+            player.slipTime--;
+            if (player.slipTime <= 0) {
+                player.isSlipping = false;
+                player.slipForce = 0;
+            }
+        }
+
+        // ç©å®¶ç§»åŠ¨
         player.x += player.dx;
-
-        // ±ß½ç¼ì²é
         if (player.x < road.x) player.x = road.x;
         if (player.x + player.width > road.x + road.width) player.x = road.x + road.width - player.width;
-
-        // 3. »æÖÆÍæ¼Ò
         drawMarioKart(player.x, player.y, player.width, player.height);
 
-        // 4. ÕÏ°­ÎïÂß¼­
         frameCount++;
-        // Ëæ×Å·ÖÊıÔö¼Ó£¬Éú³ÉÆµÂÊ¼Ó¿ì
         let spawnRate = 60;
         if (score > 500) spawnRate = 45;
         if (score > 1000) spawnRate = 30;
+        if (frameCount % spawnRate === 0) spawnObstacle();
+        if (frameCount % truckInterval === 0) spawnTruck();
 
-        if (frameCount % spawnRate === 0) {
-            spawnObstacle();
-        }
-
+        // éšœç¢ç‰©
         obstacles.forEach((obs, index) => {
             obs.y += gameSpeed;
-            
-            // »æÖÆÕÏ°­Îï
             drawGoomba(obs.x, obs.y, obs.width, obs.height);
-
-            // Åö×²¼ì²â
-            if (checkCollision(player, obs)) {
-                gameOver();
-            }
-
-            // ÒÆ³ı³¬³öÆÁÄ»µÄÕÏ°­Îï²¢¼Ó·Ö
+            if (checkCollision(player, obs)) gameOver();
             if (obs.y > canvas.height) {
                 obstacles.splice(index, 1);
                 score += 10;
-                scoreBoard.innerText = `·ÖÊı: ${score}`;
-                
-                // ÄÑ¶ÈÌáÉı
-                if (score % 100 === 0) {
-                    gameSpeed += 0.5;
-                }
+                scoreBoard.innerText = `å½“å‰åˆ†æ•°: ${score}`;
+                if (score % 100 === 0) gameSpeed += 0.5;
             }
         });
+
+        // å¡è½¦
+        if (truck) {
+            truck.y += truck.speed;
+            drawTruck(truck.x, truck.y, truck.width, truck.height);
+            if (checkCollision(player, truck)) gameOver();
+            if (truck.y > canvas.height) { truck = null; score += 30; scoreBoard.innerText = `å½“å‰åˆ†æ•°: ${score}`; }
+        }
+
+        // æ°´æ´¼ç¢°æ’
+        if (weather === 'rainy') {
+            puddles.forEach(p => {
+                if (
+                    player.x < p.x + p.size &&
+                    player.x + player.width > p.x - p.size &&
+                    player.y < p.y + p.size &&
+                    player.y + player.height > p.y - p.size
+                ) {
+                    if (!player.isSlipping) {
+                        player.isSlipping = true;
+                        player.slipTime = 40;
+                        player.slipForce = (Math.random() > 0.5 ? 1 : -1) * MAX_SLIP_FORCE;
+                    }
+                }
+            });
+        }
 
         animationId = requestAnimationFrame(update);
     }
 
-    // ¿ªÊ¼ÓÎÏ·
+    function pauseGame() { if (!gameRunning || isPaused) return; isPaused = true; pauseScreen.classList.remove('hidden'); }
+    function resumeGame() { if (!isPaused) return; isPaused = false; pauseScreen.classList.add('hidden'); update(); }
     function startGame() {
-        // ÖØÖÃ×´Ì¬
-        gameRunning = true;
-        score = 0;
-        gameSpeed = 5;
-        obstacles = [];
-        player.x = 175;
-        frameCount = 0;
-        
-        // UI ¸üĞÂ
-        startScreen.classList.add('hidden');
+        gameRunning = true; isPaused = false; score = 0; gameSpeed = 5;
+        obstacles = []; truck = null; frameCount = 0;
+        player.isSlipping = false; player.slipTime = 0;
+        player.x = road.x + (road.width - player.width) / 2;
+        initPuddles();
+        pauseScreen.classList.add('hidden');
         gameOverScreen.classList.add('hidden');
         scoreBoard.classList.remove('hidden');
-        scoreBoard.innerText = '·ÖÊı: 0';
-
+        scoreBoard.innerText = `å½“å‰åˆ†æ•°: ${score}`;
         update();
     }
-
-    // ÓÎÏ·½áÊø
     function gameOver() {
-        gameRunning = false;
+        gameRunning = false; isPaused = false;
         cancelAnimationFrame(animationId);
         finalScoreSpan.innerText = score;
         scoreBoard.classList.add('hidden');
+        pauseScreen.classList.add('hidden');
         gameOverScreen.classList.remove('hidden');
     }
+    function endGame() {
+        gameRunning = false; isPaused = false;
+        cancelAnimationFrame(animationId);
+        pauseScreen.classList.add('hidden');
+        gameOverScreen.classList.remove('hidden');
+        scoreBoard.classList.add('hidden');
+    }
 
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 </script>
-
 </body>
 </html>
