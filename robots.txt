@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /js/
+Disallow: /css/
+Disallow: /img/
+Disallow: /vendor/
+
+Sitemap: https://blog.bslzzz.cn/sitemap.xml
+Sitemap: https://blog.bslzzz.cn/baidusitemap.xml
