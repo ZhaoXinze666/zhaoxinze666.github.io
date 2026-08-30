@@ -1,3 +1,3 @@
-var posts=["2026/08/11/如何本地部署一个-AI/","2026/08/11/hello-world/","2026/08/11/题解：AT-kupc2024-e-Enumerate-Multiplication-Table/","2026/08/11/题解：P15022-UOI-2020-II-Stage-邻居/","2026/08/11/题解：P14970-『GTOI-2A』睡眠质量/"];function toRandomPost(){
+var posts=["2026/08/14/hello-world/","2026/08/30/如何本地部署一个-AI/","2026/08/29/题解-P14747-相似字符串/","2026/08/29/题解：AT-kupc2024-e-Enumerate-Multiplication-Table/","2026/08/29/题解：CF2166B-Tab-Closing/","2026/08/29/题解-P14749-名字取好了/","2026/08/29/题解：P1387-最大正方形/","2026/08/29/题解：P14663-KenOI-2025-倍数题/","2026/08/29/题解：P14970-『GTOI-2A』睡眠质量/","2026/08/29/题解：P15022-UOI-2020-II-Stage-邻居/","2026/08/29/题解：P7063-NWRRC-2014-Digits/"];function toRandomPost(){
     pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);
   };
